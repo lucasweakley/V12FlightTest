@@ -2,7 +2,7 @@
 
 V12FlightTest is a compact flight-test telemetry dashboard widget for 320 × 240 EdgeTX color radios. It was designed around the HelloRadio V12, Betaflight, and ExpressLRS/CRSF telemetry. The display probably has more information than neccessary, however it looks cool!
 
-![v12screen](screenshots/v12display.png)
+![v12screen](screenshots/v12display1.1.png)
 
 ## Example Screenshots
 ![roll](screenshots/roll.png)
