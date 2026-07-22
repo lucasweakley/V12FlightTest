@@ -4,7 +4,12 @@ V12FlightTest is a compact flight-test telemetry dashboard widget for 320 × 240
 
 ![v12screen](screenshots/v12display.png)
 
-![examples](screenshots/screenexamples.png)
+## Example Screenshots
+![roll](screenshots/roll.png)
+![lowbatt](screenshots/lowbatt.png)
+
+## Lamp Test
+![lamptest](screenshots/lamptest.png)
 
 ## Features
 
