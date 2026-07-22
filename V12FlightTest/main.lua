@@ -767,7 +767,8 @@ local function refresh(w, event, touchState)
   drawAnnunciator(ox + 107, ay,      aw, ah, displayArmed and "ARMED" or "DISARMED", 0, blinkOn, displayArmed and "armed" or "safe")
   drawAnnunciator(ox + 214, ay,      aw, ah, displayMode == "ACRO" and "AIR MODE" or displayMode, 0, blinkOn, (displayMode == "ACRO" or displayMode == "AIR MODE") and "airmode" or "mode")
   drawAnnunciator(ox,       ay + 28, aw, ah, "FAILSAFE", displayFailsafe and 2 or 0, blinkOn)
-  drawAnnunciator(ox + 107, ay + 28, aw, ah, "LOW LINK", displayLqLevel, blinkOn)
+  local lowLinkAnnunciator = (displayLqLevel > 0) and 1 or 0
+  drawAnnunciator(ox + 107, ay + 28, aw, ah, "LOW LINK", lowLinkAnnunciator, blinkOn)
   drawAnnunciator(ox + 214, ay + 28, aw, ah, "TELEM LOST", displayTelemStale and 2 or 0, blinkOn)
 
   if not lampTest then
