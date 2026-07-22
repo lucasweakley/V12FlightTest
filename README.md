@@ -9,17 +9,18 @@ V12FlightTest is a compact flight-test telemetry dashboard widget for 320 × 240
 ## Features
 
 - Full-roll artificial horizon with sky and ground fill
-- Pitch tracking through steep nose-up and nose-down attitudes
-- Pitch ladder from −60° to +60° in clean 10° increments
+- Pitch tracking through steep nose-up, nose-down, and inverted attitudes
+- ±60° pitch ladder with clean 10° spacing
+- Moving bank-angle scale with roll pointer
 - Pitch, roll, and computed yaw-rate display
 - Flight battery voltage, per-cell voltage, current, and consumed capacity
-- ExpressLRS link quality, RSSI, SNR, RF rate, power, antenna, and downlink data
-- ARM/SAFE and flight-mode annunciators
-- Teal advisory styling for ARM and AIR MODE
+- Adaptive ExpressLRS signal quality coloring based on RF packet rate
+- Link Quality, RSSI, SNR, RF rate, and transmit power display
+- Color-coded battery, link, and telemetry status annunciators
+- ARMED / DISARMED and flight mode annunciators
+- Configurable Lamp Test switch for pre-flight display verification
 - Color-coded transmitter battery percentage
-- Date and time display
 - Optional battery-only audio alerts
-- Brief startup identification screen and visible version label
 
 ## Requirements
 
@@ -34,13 +35,9 @@ The critical battery alarm does not depend on a voice file. It uses a repeating 
 
 1. Extract the ZIP archive.
 2. Copy the included `V12FlightTest` folder to the radio SD card:
-
    `/WIDGETS/V12FlightTest/`
-
 3. Confirm the resulting script path is:
-
    `/WIDGETS/V12FlightTest/main.lua`
-
 4. Safely eject the radio or SD card.
 5. On the radio, open the model display or telemetry-screen setup.
 6. Add a widget and select **V12FlightTest**.
@@ -48,24 +45,42 @@ The critical battery alarm does not depend on a voice file. It uses a repeating 
 
 If the widget does not appear, restart EdgeTX or reload the Lua scripts.
 
-## Widget settings
+## Widget Settings
 
 - **LQWarn** — Link-quality caution threshold, percent
 - **LQCrit** — Link-quality critical threshold, percent
-- **VWarn** — Low-battery threshold in centivolts per cell; `350` means 3.50 V/cell
-- **VCrit** — Critical-battery threshold in centivolts per cell; `330` means 3.30 V/cell
+- **VWarn** — Low-battery threshold in centivolts per cell (`350` = 3.50 V/cell)
+- **VCrit** — Critical-battery threshold in centivolts per cell (`330` = 3.30 V/cell)
 - **Cells** — Manual cell count from 1–8; `0` enables automatic detection
 - **BatAlarm** — Enables or disables battery warning audio
+- **LampTest** — Optional physical or logical switch used to illuminate all warnings and display simulated critical telemetry values
 
-## Battery alarm behavior
+## Lamp Test
+
+Assign any physical or logical switch to the **LampTest** widget option.
+
+While the assigned switch is active, the widget temporarily displays:
+
+- Critical battery
+- Failsafe
+- Low link quality
+- Telemetry lost
+- ARMED
+- AIR MODE
+- Representative worst-case LQ, RSSI, and SNR values
+
+The lamp test is visual only. It does not modify telemetry or trigger battery audio alarms.
+
+## Battery Alarm Behavior
 
 - Crossing **VWarn** plays the low-battery prompt once, followed by two warning tones.
 - Crossing **VCrit** attempts the critical-battery prompt, then plays a four-pulse critical alarm.
 - While voltage remains critical, the four-pulse alarm repeats every five seconds.
 - The tone alarm still works when the corresponding WAV file is missing.
+- Battery warnings are generated only while valid telemetry is being received, preventing false alarms after telemetry loss.
 - Disabling **BatAlarm** affects only audio; visual warnings remain active.
 
-## Telemetry names
+## Telemetry Names
 
 The widget checks several common EdgeTX/CRSF sensor names, including `RxBt`, `VFAS`, `Curr`, `Capa`, `RQly`, `1RSS`, `2RSS`, `RSNR`, `RFMD`, `TPWR`, `FM`, `Ptch`, `Roll`, and `Yaw`.
 
@@ -73,6 +88,6 @@ Sensor discovery can vary with EdgeTX, Betaflight, and receiver configuration. D
 
 ## Version
 
-V12FlightTest v1.0
+V12FlightTest v1.1
 
-Designed by Lucas Weakley with development assistance from ChatGPT by OpenAI.
+Designed by Lucas Weakley. Development assistance provided by ChatGPT (OpenAI).
